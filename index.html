@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WeatherNow — Simple Weather App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body{font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif}
+    .glass{background: rgba(255,255,255,0.7); backdrop-filter: blur(10px)}
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-indigo-50 via-sky-50 to-teal-50 text-slate-800">
+  <header class="sticky top-0 z-10 border-b border-slate-200/70 bg-white/70 backdrop-blur">
+    <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
+      <h1 class="text-xl md:text-2xl font-extrabold tracking-tight"><span class="text-indigo-600">Weather</span>Now</h1>
+      <div class="flex items-center gap-2 text-sm">
+        <button id="unit-c" class="px-3 py-1 rounded-full border border-slate-300 hover:bg-slate-100 active:scale-95">°C</button>
+        <button id="unit-f" class="px-3 py-1 rounded-full border border-slate-300 hover:bg-slate-100 active:scale-95">°F</button>
+        <button id="loc-btn" class="ml-2 px-3 py-1.5 rounded-full bg-indigo-600 text-white hover:bg-indigo-700 active:scale-95">Use My Location</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4 py-8">
+    <!-- Search -->
+    <div class="glass rounded-2xl shadow-sm p-4 md:p-6">
+      <form id="search-form" class="flex flex-col md:flex-row gap-3">
+        <input id="query" type="text" placeholder="Search city (e.g., Bhubaneswar)" class="flex-1 px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500" required />
+        <button class="px-5 py-3 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700 active:scale-95">Search</button>
+      </form>
+      <p id="status" class="mt-3 text-sm text-slate-500"></p>
+    </div>
+
+    <!-- Current Weather -->
+    <section id="current" class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6 opacity-0 transition-opacity duration-300">
+      <div class="md:col-span-2 glass rounded-2xl p-6 shadow-sm">
+        <div class="flex items-start justify-between">
+          <div>
+            <h2 id="place" class="text-2xl md:text-3xl font-extrabold">—</h2>
+            <p id="coords" class="text-xs text-slate-500 mt-1">—</p>
+          </div>
+          <div class="text-6xl" id="emoji">☁️</div>
+        </div>
+        <div class="mt-6 flex items-end gap-6">
+          <div>
+            <div id="temp" class="text-5xl md:text-6xl font-extrabold leading-none">—</div>
+            <div id="desc" class="text-slate-600 mt-1">—</div>
+          </div>
+          <div class="grid grid-cols-2 gap-4 text-sm">
+            <div class="p-3 rounded-xl border border-slate-200">
+              <div class="text-slate-500">Feels like</div>
+              <div class="font-semibold" id="feels">—</div>
+            </div>
+            <div class="p-3 rounded-xl border border-slate-200">
+              <div class="text-slate-500">Humidity</div>
+              <div class="font-semibold" id="humidity">—</div>
+            </div>
+            <div class="p-3 rounded-xl border border-slate-200">
+              <div class="text-slate-500">Wind</div>
+              <div class="font-semibold" id="wind">—</div>
+            </div>
+            <div class="p-3 rounded-xl border border-slate-200">
+              <div class="text-slate-500">Updated</div>
+              <div class="font-semibold" id="updated">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="glass rounded-2xl p-6 shadow-sm">
+        <h3 class="font-semibold mb-4">Details</h3>
+        <ul class="space-y-2 text-sm">
+          <li><span class="text-slate-500">Timezone:</span> <span id="timezone" class="font-medium">—</span></li>
+          <li><span class="text-slate-500">Latitude:</span> <span id="lat" class="font-medium">—</span></li>
+          <li><span class="text-slate-500">Longitude:</span> <span id="lon" class="font-medium">—</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Forecast -->
+    <section id="forecast" class="mt-6 glass rounded-2xl p-6 shadow-sm opacity-0 transition-opacity duration-300">
+      <h3 class="font-semibold mb-4">7‑Day Forecast</h3>
+      <div id="days" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-7 gap-3"></div>
+    </section>
+  </main>
+
+  <footer class="mt-10 pb-8 text-center text-xs text-slate-500">
+    Built with the Open‑Meteo API. No API key required.
+  </footer>
+  <script src="app.js"></script>
+
+</body>
+</html>
